@@ -1,0 +1,275 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 280px;
+  background: #0f0f0f;
+  color: #e8e8e8;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 13px;
+  padding-bottom: 10px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px 10px;
+  border-bottom: 1px solid #2a2a2a;
+  margin-bottom: 12px;
+}
+
+.logo {
+  color: #ff0000;
+  font-size: 16px;
+}
+
+.brand {
+  font-weight: 600;
+  font-size: 14px;
+  color: #fff;
+  letter-spacing: 0.3px;
+}
+
+/* Hint text */
+.hint {
+  font-size: 11px;
+  color: #666;
+  padding: 0 16px 12px;
+  line-height: 1.5;
+}
+
+.hint strong {
+  color: #888;
+}
+
+/* Inputs */
+input[type="text"] {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #e8e8e8;
+  padding: 7px 10px;
+  font-size: 12px;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s;
+}
+
+input[type="text"]:focus {
+  border-color: #666;
+}
+
+input[type="text"]::placeholder {
+  color: #555;
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: opacity 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+
+button:active {
+  opacity: 0.8;
+}
+
+.btn-primary {
+  background: #ff0000;
+  color: #fff;
+  padding: 8px 14px;
+  width: calc(100% - 32px);
+  margin: 0 16px;
+  display: block;
+}
+
+.btn-primary:hover {
+  background: #cc0000;
+}
+
+.btn-danger {
+  background: #3a1a1a;
+  color: #ff6b6b;
+  border: 1px solid #5a2a2a;
+  padding: 7px 14px;
+  width: calc(100% - 32px);
+  margin: 10px 16px 0;
+  display: block;
+}
+
+.btn-danger:hover {
+  background: #4a1a1a;
+}
+
+.btn-icon {
+  background: #2a2a2a;
+  color: #ccc;
+  padding: 4px 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.btn-icon:hover {
+  background: #333;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  color: #444;
+  font-size: 11px;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #2a2a2a;
+}
+
+.divider span {
+  padding: 0 8px;
+}
+
+/* Join row */
+.join-row {
+  display: flex;
+  gap: 6px;
+  padding: 0 16px;
+}
+
+.join-row input {
+  flex: 1;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+
+.join-row .btn-primary {
+  width: auto;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+/* Error */
+.error {
+  color: #ff6b6b;
+  font-size: 11px;
+  padding: 6px 16px 0;
+}
+
+/* Room badge */
+.room-badge {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 0 16px 10px;
+}
+
+.room-label {
+  font-size: 10px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 4px;
+}
+
+.room-code-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.room-code {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+}
+
+/* Role tags */
+.role-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  margin: 0 16px 10px;
+}
+
+.host-tag {
+  background: #1a2a1a;
+  color: #4caf50;
+  border: 1px solid #2a4a2a;
+}
+
+.client-tag {
+  background: #1a1a2a;
+  color: #7986cb;
+  border: 1px solid #2a2a4a;
+}
+
+/* Song info */
+.song-info {
+  padding: 6px 16px 8px;
+  min-height: 40px;
+}
+
+.song-title {
+  font-weight: 600;
+  font-size: 13px;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.song-artist {
+  font-size: 11px;
+  color: #888;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Listener count */
+.listener-count {
+  font-size: 11px;
+  color: #555;
+  padding: 0 16px;
+}
+
+/* Sync status */
+.sync-status {
+  font-size: 11px;
+  padding: 0 16px 6px;
+  color: #7986cb;
+}
+
+/* Reconnect notice */
+.reconnect {
+  font-size: 11px;
+  padding: 4px 16px;
+  color: #ffb74d;
+}

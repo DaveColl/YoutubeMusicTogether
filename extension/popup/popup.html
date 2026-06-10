@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Music Together</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="header">
+    <span class="logo">&#9654;</span>
+    <span class="brand">Music Together</span>
+  </div>
+
+  <!-- No room view -->
+  <div id="view-no-room">
+    <p class="hint">Open <strong>music.youtube.com</strong> first, then create or join a room.</p>
+
+    <button id="btn-create" class="btn-primary">Create Room</button>
+
+    <div class="divider"><span>or join</span></div>
+
+    <div class="join-row">
+      <input id="join-code" type="text" placeholder="Room code" maxlength="6" autocomplete="off" spellcheck="false" />
+      <button id="btn-join" class="btn-primary">Join</button>
+    </div>
+
+    <div id="error-msg" class="error hidden"></div>
+  </div>
+
+  <!-- Host view -->
+  <div id="view-host" class="hidden">
+    <div class="room-badge">
+      <div class="room-label">Room Code — share this</div>
+      <div class="room-code-row">
+        <span id="host-room-code" class="room-code"></span>
+        <button id="btn-copy" class="btn-icon" title="Copy code">&#128203;</button>
+      </div>
+    </div>
+
+    <div class="role-tag host-tag">&#128081; Hosting</div>
+
+    <div class="song-info">
+      <div id="host-title" class="song-title">—</div>
+      <div id="host-artist" class="song-artist"></div>
+    </div>
+
+    <div id="client-count" class="listener-count">0 listeners connected</div>
+
+    <button id="btn-leave-host" class="btn-danger">Leave Room</button>
+  </div>
+
+  <!-- Client view -->
+  <div id="view-client" class="hidden">
+    <div class="room-badge">
+      <div class="room-label">Connected to</div>
+      <span id="client-room-code" class="room-code"></span>
+    </div>
+
+    <div class="role-tag client-tag">&#127925; Listening</div>
+
+    <div id="sync-status" class="sync-status">Waiting for host...</div>
+
+    <div class="song-info">
+      <div id="client-title" class="song-title">—</div>
+      <div id="client-artist" class="song-artist"></div>
+    </div>
+
+    <div id="reconnect-notice" class="reconnect hidden">Host disconnected — reconnecting…</div>
+
+    <button id="btn-leave-client" class="btn-danger">Leave Room</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

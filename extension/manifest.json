@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Music Together",
+  "version": "1.0.0",
+  "description": "Sync YouTube Music playback peer-to-peer across multiple users.",
+  "permissions": [
+    "storage",
+    "tabs",
+    "activeTab",
+    "alarms",
+    "offscreen"
+  ],
+  "host_permissions": [
+    "https://music.youtube.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "scripts": ["peerjs.min.js", "background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://music.youtube.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "ytmusictogether@extension",
+      "strict_min_version": "109.0"
+    }
+  }
+}
