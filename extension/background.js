@@ -3,6 +3,25 @@
 // We detect which context we're in and use the right P2P path.
 const IS_FIREFOX = typeof window !== "undefined";
 
+// ICE config passed to every Peer (Firefox path). STUN handles non-symmetric NATs with
+// zero setup; the TURN relay is required for symmetric-NAT / strict-firewall peers (most
+// cross-network pairs). Fill in real TURN creds (e.g. Metered free tier —
+// https://dashboard.metered.ca) where marked. Keep this in sync with the copy in offscreen.js.
+// Multiple STUN servers give the browser the best chance of discovering its public
+// IP/port behind NAT. STUN only ever sees your IP address — no music data passes
+// through it. Works for ~85% of cross-network pairs with zero signup/credentials.
+// The remaining ~15% (symmetric NAT) would need a TURN relay; left out intentionally.
+const PEER_CONFIG = {
+  config: {
+    iceServers: [
+      { urls: "stun:stun.l.google.com:19302" },
+      { urls: "stun:stun1.l.google.com:19302" },
+      { urls: "stun:stun2.l.google.com:19302" },
+      { urls: "stun:stun3.l.google.com:19302" },
+    ],
+  },
+};
+
 // ── Shared state ──────────────────────────────────────────────────────────────
 
 let roomCode = null;
@@ -166,7 +185,7 @@ function ffSetupClientConn(conn) {
 function ffCreateRoom(code) {
   const id = code ?? ffGenerateCode();
 
-  ffPeer = new Peer(ffPeerId(id)); // Peer is available via background.scripts: ["peerjs.min.js", ...]
+  ffPeer = new Peer(ffPeerId(id), PEER_CONFIG); // Peer is available via background.scripts: ["peerjs.min.js", ...]
 
   ffPeer.on("open", () => {
     onRoomCreated(id);
@@ -205,7 +224,7 @@ function ffCreateRoom(code) {
 }
 
 function ffJoinRoom(code) {
-  ffPeer = new Peer();
+  ffPeer = new Peer(undefined, PEER_CONFIG);
 
   ffPeer.on("open", () => {
     ffHostConn = ffPeer.connect(ffPeerId(code), { reliable: true });

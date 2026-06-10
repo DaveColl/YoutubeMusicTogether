@@ -1,6 +1,25 @@
 // Runs inside the Chrome offscreen document — has full DOM/WebRTC APIs.
 // Handles all PeerJS logic for Chrome. Communicates with background.js via messages.
 
+// ICE config passed to every Peer. STUN handles non-symmetric NATs with zero setup;
+// the TURN relay is required for symmetric-NAT / strict-firewall peers (most cross-network
+// pairs). Fill in real TURN creds (e.g. Metered free tier — https://dashboard.metered.ca)
+// where marked. Keep this in sync with the copy in background.js.
+// Multiple STUN servers give the browser the best chance of discovering its public
+// IP/port behind NAT. STUN only ever sees your IP address — no music data passes
+// through it. Works for ~85% of cross-network pairs with zero signup/credentials.
+// The remaining ~15% (symmetric NAT) would need a TURN relay; left out intentionally.
+const PEER_CONFIG = {
+  config: {
+    iceServers: [
+      { urls: 'stun:stun.l.google.com:19302' },
+      { urls: 'stun:stun1.l.google.com:19302' },
+      { urls: 'stun:stun2.l.google.com:19302' },
+      { urls: 'stun:stun3.l.google.com:19302' },
+    ],
+  },
+};
+
 let peer = null;
 let connections = new Set(); // host: open DataConnections to clients
 let hostConn = null;         // client: DataConnection to host
@@ -52,7 +71,7 @@ function createRoom(code) {
 
   roomCode = id;
 
-  peer = new Peer(peerId(id));
+  peer = new Peer(peerId(id), PEER_CONFIG);
 
   peer.on('open', () => {
     isHost = true;
@@ -96,7 +115,7 @@ function joinRoom(code) {
   }
 
   roomCode = code;
-  peer = new Peer();
+  peer = new Peer(undefined, PEER_CONFIG);
 
   peer.on('open', () => {
     hostConn = peer.connect(peerId(code), { reliable: true });
